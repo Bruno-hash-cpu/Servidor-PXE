@@ -1,4 +1,4 @@
-# Servidor-PXE-
+# Servidor-PXE
 Servidor de Formação por rede PXE com [FOG Project](https://fogproject.org/)
 
 

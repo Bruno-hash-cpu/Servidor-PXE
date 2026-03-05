@@ -32,13 +32,33 @@ sudo apt upgrade
 sudo apt install tftpd-hpa
 ```
 
-- depois configure
+- depois configure o `/etc/default/tftpd-hpa`
+```bash
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="/srv/tftp"
+TFTP_OPTIONS="--secure"
+```
 
+- crie o diretorio tftp
+```bash
+sudo mkdir -p /srv/tftp
+```
 
 
 - instale os pacotes
 ```bash
 sudo apt install apache2 mysql-server php libapache2-mod-php php-mysql php-curl php-xml php-gd php-json tftpd-hpa
+```
+
+- adicione os arquivos
+```bash
+sudo cp /path/to/your/pxelinux.0 /srv/tftp
+sudo chmod 777 /srv/tftp/pxelinux.0
+```
+
+- resete seu serviço
+```bash
+sudo systemctl restart tftpd-hpa
 ```
 
 - Clonar o repositório do Fog Project
@@ -81,9 +101,7 @@ dhcp-option=67,pxelinux.0
 sudo systemctl restart dnsmasq
 ```
 
-
+### Lembre-se:
 Se na sua rede tem algum groupware, apenas aponte o tftp para o ip<addr> do servidor PXE.
 
-
-```
-```
+Com essa configuração, você deve ter um servidor DHCP funcionando que irá direcionar as máquinas para o servidor PXE, permitindo que elas iniciem via rede. O servidor TFTP deve estar ativo para fornecer os arquivos necessários para a inicialização.
